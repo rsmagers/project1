@@ -30,7 +30,7 @@ void next3(int* temp)
 	for(int i = 0; i < 3; i++)
 	{
 		fscanf(fp, "%d",&next);
-		printf("next3 = %d\n", next);
+		//printf("next3 = %d\n", next);
 		temp[i] = next;
 	}
 }
