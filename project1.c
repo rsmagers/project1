@@ -5,11 +5,11 @@
 int vcon = 0;
 int invcon = 0;
 float cpu = 100.00;
-float thrput;
+double thrput;
 float turnaround = 0.00;
-float waiting;
-float response;
-
+double waiting;
+double response;
+FILE *fp;
 
 void printAll()
 {
@@ -27,7 +27,7 @@ void next3(int* temp)
 	int next;
 	for(int i = 0; i < 3; i++)
 	{
-		scanf("%d",&next);
+		fscanf(fp, "%d",&next);
 		//printf("next3 = %d\n", next);
 		temp[i] = next;
 	}
@@ -36,11 +36,15 @@ void next3(int* temp)
 int main(int argc, char** argv)
 {
 	// setup
+	
+	fp = fopen(argv[1], "r");
+		
+	
 	int P;
-	scanf("%d", &P); // numb processes. in this project always = 1
-	scanf("%d", &P); // numb of execution elements
+	fscanf(fp, "%d", &P); // numb processes. in this project always = 1
+	fscanf(fp, "%d", &P); // numb of execution elements
 	int lines;
-	scanf("%d", &lines);
+	fscanf(fp, "%d", &lines);
 	
 	int temp[3];
 	int master[P];
@@ -75,10 +79,10 @@ int main(int argc, char** argv)
 	}
 	
 	// calc
-	response = (float) turnaround / P; 
-	turnaround = (float) (total + turnaround)  / P;		
-	thrput = (float) P / total;
-	waiting = (float) total / P;
+	response = (double) turnaround / P; 
+	turnaround = (double) (total + turnaround)  / P;		
+	thrput = (double) P / total;
+	waiting = (double) total / P;
 	
 	// print
 	printAll();
