@@ -38,10 +38,37 @@ void next3(int* temp)
 int main(int argc, char** argv)
 {
 	// setup
-	
+	char test[2048];
 	fp = fopen(argv[1], "r");
+	int start = 0;
+	while(fscanf(fp, "%s", test) != EOF)
+	{
+		if(start == 0)
+		{
+			printf("%s\n", test);
+
+			fscanf(fp, "%s", test);
+			printf("%s ", test);
+
+			fscanf(fp, "%s", test);
+			printf("%s\n", test);
+
+			start = 1;
+		}
+		else
+		{
+			printf("%s ", test);
 		
-	
+			fscanf(fp, "%s", test);
+			printf("%s ", test);
+		
+			fscanf(fp, "%s", test);
+			printf("%s\n", test);
+		}
+	}
+
+
+	/*	
 	int P;
 	fscanf(fp, "%d", &P); // numb processes. in this project always = 1
 	fscanf(fp, "%d", &P); // numb of execution elements
@@ -88,6 +115,6 @@ int main(int argc, char** argv)
 	
 	// print
 	printAll();
-
+*/
 	return 0;
 }
