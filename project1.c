@@ -15,12 +15,12 @@ void printAll()
 {
 	printf("%d\n", vcon);
 	printf("%d\n", invcon);
-	printf("%.2f\n", cpu);
-	printf("%.2f\n", thrput);	
-	printf("%.2f\n", turnaround);
+	printf("%.02f\n", cpu);
+	printf("%.02f\n", thrput);	
+	printf("%.02f\n", turnaround);
 	//printf("%.2f\n", waiting);
-	printf("%.2f\n", response);
-	printf("%.2f\n", waiting);
+	printf("%.02f\n", response);
+	printf("%.02f\n", waiting);
 	
 }
 
@@ -30,7 +30,7 @@ void next3(int* temp)
 	for(int i = 0; i < 3; i++)
 	{
 		fscanf(fp, "%d",&next);
-		//printf("next3 = %d\n", next);
+		printf("next3 = %d\n", next);
 		temp[i] = next;
 	}
 }
