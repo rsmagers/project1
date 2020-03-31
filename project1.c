@@ -18,8 +18,10 @@ void printAll()
 	printf("%.2f\n", cpu);
 	printf("%.2f\n", thrput);	
 	printf("%.2f\n", turnaround);
-	printf("%.2f\n", waiting);
+	//printf("%.2f\n", waiting);
 	printf("%.2f\n", response);
+	printf("%.2f\n", waiting);
+	
 }
 
 void next3(int* temp)
