@@ -78,14 +78,14 @@ int main(int argc, char** argv)
 			if(switchArray[temp[0]-1] == 0) // if first time increase  vcon
 			{
 				switchArray[pre - 1] = 1;
-				printf("switchArray change = %d\n", switchArray[pre - 1]);
+				//printf("switchArray change = %d\n", switchArray[pre - 1]);
 				vcon++; 
 				//response += total;
 				//printf("response = %f\n", response);
 			}
 			else if(switchArray[temp[0]-1] == 1)
 			{
-				printf("invcon switch = %d\n", switchArray[pre - 1]);
+				//printf("invcon switch = %d\n", switchArray[pre - 1]);
 				invcon++;
 				
 			}
@@ -108,7 +108,7 @@ int main(int argc, char** argv)
 		//printf("total = %d\n", total);
 		//printf("turnaround = %f\n", turnaround);
 		*/
-		printf("pre = %d, cur = %d\n", pre, cur);
+		//printf("pre = %d, cur = %d\n", pre, cur);
 		
 		pre = cur;
 	}
@@ -119,9 +119,9 @@ int main(int argc, char** argv)
 
 
 	//stats
-	printf("total = %d\n", total);
-	printf("turnaround = %f\n", turnaround);
-	printf("response = %f\n", response);	
+	//printf("total = %d\n", total);
+	//printf("turnaround = %f\n", turnaround);
+	//printf("response = %f\n", response);	
 	// calc
 	waiting = (double) (turnaround - total) / P; 
 
