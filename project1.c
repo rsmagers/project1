@@ -6,21 +6,21 @@ int vcon = 0;
 int invcon = 0;
 float cpu = 100.00;
 double thrput;
-float turnaround = 0.00;
+double turnaround = 0.00;
 double waiting;
 double response;
 FILE *fp;
 
 void printAll()
 {
+	// waiting and response time are mixed up
 	printf("%d\n", vcon);
 	printf("%d\n", invcon);
 	printf("%.02f\n", cpu);
 	printf("%.02f\n", thrput);	
-	printf("%.02f\n", turnaround);
-	//printf("%.2f\n", waiting);
-	printf("%.02f\n", response);
+	printf("%.02f\n", turnaround);;
 	printf("%.02f\n", waiting);
+	printf("%.02f\n", response);
 	
 }
 
@@ -38,37 +38,8 @@ void next3(int* temp)
 int main(int argc, char** argv)
 {
 	// setup
-	char test[2048];
 	fp = fopen(argv[1], "r");
-	int start = 0;
-	while(fscanf(fp, "%s", test) != EOF)
-	{
-		if(start == 0)
-		{
-			printf("%s\n", test);
-
-			fscanf(fp, "%s", test);
-			printf("%s ", test);
-
-			fscanf(fp, "%s", test);
-			printf("%s\n", test);
-
-			start = 1;
-		}
-		else
-		{
-			printf("%s ", test);
-		
-			fscanf(fp, "%s", test);
-			printf("%s ", test);
-		
-			fscanf(fp, "%s", test);
-			printf("%s\n", test);
-		}
-	}
-
-
-	/*	
+	
 	int P;
 	fscanf(fp, "%d", &P); // numb processes. in this project always = 1
 	fscanf(fp, "%d", &P); // numb of execution elements
@@ -77,20 +48,51 @@ int main(int argc, char** argv)
 	
 	int temp[3];
 	int master[P];
-	for(int a = 0; a < P; a++)
+	int switchArray[P];
+	for(int a = 0; a < P; a++) // init both
 	{
 		master[a] = 0; 
+		switchArray[a] = 0;
 	}
 
 	// build
-	int pre = 0; 
+	int pre = 0;
+	int cur;	
 	int total = 0;
 	for(int i = 0; i < lines; i++) 
 	{
 		next3(temp);
 		master[temp[0]-1] += temp[1];
+		cur = temp[0];
+
+		if(pre == 0) // this sets up pre, prob delete
+		{
+			//pre = cur;
+		}
+
 		total += temp[1];
-		turnaround += temp[1];
+		//turnaround += temp[1];
+
+		if(cur != pre) // a switch happens
+		{
+			if(switchArray[temp[0]-1] == 0) // if first time increase  vcon
+			{
+				switchArray[pre - 1] = 1;
+				printf("switchArray change = %d\n", switchArray[pre - 1]);
+				vcon++; 
+				//response += total;
+				//printf("response = %f\n", response);
+			}
+			else if(switchArray[temp[0]-1] == 1)
+			{
+				printf("invcon switch = %d\n", switchArray[pre - 1]);
+				invcon++;
+				
+			}
+
+		}
+		
+		/*  Old switch counter
 		// count switches	
 		if(pre < temp[0])
 		{
@@ -105,16 +107,33 @@ int main(int argc, char** argv)
 		}
 		//printf("total = %d\n", total);
 		//printf("turnaround = %f\n", turnaround);
+		*/
+		printf("pre = %d, cur = %d\n", pre, cur);
+		
+		pre = cur;
 	}
-	
+	for(int x = 0; x < P; x++)
+	{
+		turnaround += master[x] * (P - x);
+	}
+
+
+	//stats
+	printf("total = %d\n", total);
+	printf("turnaround = %f\n", turnaround);
+	printf("response = %f\n", response);	
 	// calc
-	response = (double) turnaround / P; 
-	turnaround = (double) (total + turnaround)  / P;		
+	waiting = (double) (turnaround - total) / P; 
+
+	response = (double) (turnaround - total) / P; // this is wrong
+
+	turnaround = (double) turnaround  / P;		
+	
 	thrput = (double) P / total;
-	waiting = (double) total / P;
+	
 	
 	// print
 	printAll();
-*/
+
 	return 0;
 }
