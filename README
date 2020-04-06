@@ -1,0 +1,24 @@
+Ryan Magers
+
+How to Run:
+./project1 filename.txt
+
+The way I did it was I built a table and used that to calculate everything.
+The first function called is next3() which just reads the next line of instructions.
+Next, poptable() is called which calculates when a PID first shows up and then populates
+the table depending on the PID and burst time.
+There is a bug here where for whatever reason the last PID gets messed up and it
+incorrectly calculates when the PID first started. There is an if() statement to try
+and catch this bug and it seems to work for smaller samples but in the large test it fails.
+After leaving the main for loop we go to the function fixTable(). This poplulates the table 
+with the extra 1's in cells for the calculations.
+There is a printtable() function the will print out the table for example it will look like:
+1 1 1 1
+1 1 1 1
+0 1 1 1
+0 0 1 1
+0 0 0 1
+0 0 0 1
+
+I had some trouble with the two dimensional array so I looked at the website:
+https://www.programiz.com/c-programming/c-arrays-functions
